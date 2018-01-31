@@ -363,7 +363,7 @@ var jsPDF = (function (global) {
         events.publish('postPutPages');
       },
       putFont = function (font) {
-        if ((font.id).slice(1) >= 14) {
+        if ((font.id).slice(1) >= 14 && font.postScriptName.toLowerCase().endsWith('ttf')) {
           var dictionary = font.metadata.embedTTF(font.encoding, newObject, out);
           dictionary ? font.objectNumber = dictionary : delete fonts[font.id];
         } else {
@@ -519,7 +519,6 @@ var jsPDF = (function (global) {
               0] + ": " + e.message;
             if (global.console) {
               global.console.error(m, e);
-              if (global.alert) alert(m);
             } else {
               throw new Error(m);
             }
